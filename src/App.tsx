@@ -1,10 +1,4 @@
-import {
-  Button,
-  ButtonGroup,
-  Card,
-  Paper,
-  Typography,
-} from "@material-ui/core";
+import { Button, ButtonGroup, Typography } from "@material-ui/core";
 import { GuaData, GuaDetailMap } from "./data";
 import React, { useState } from "react";
 
