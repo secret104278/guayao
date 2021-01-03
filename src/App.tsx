@@ -1,8 +1,13 @@
-import { Button, ButtonBase, ButtonGroup, Typography } from "@material-ui/core";
 import { GuaData, GuaDetailMap } from "./data";
-import React, { useState } from "react";
 
+import Button from "@material-ui/core/Button";
+import ButtonBase from "@material-ui/core/ButtonBase";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import IconButton from "@material-ui/core/IconButton";
+import StarIcon from "@material-ui/icons/Star";
+import Typography from "@material-ui/core/Typography";
 import styles from "./App.module.css";
+import { useState } from "react";
 
 enum YaoType {
   Yin = 0,
@@ -48,11 +53,22 @@ function App() {
       return oldGua.map(
         (g, j): Yao => {
           if (j === i) {
-            if (g.type === YaoType.Yang) {
-              return { ...g, type: YaoType.Yin, changed: !g.changed };
-            } else if (g.type === YaoType.Yin) {
-              return { ...g, type: YaoType.Yang, changed: !g.changed };
-            }
+            return { ...g, changed: !g.changed };
+          }
+          return g;
+        }
+      ) as GuaYao;
+    });
+  };
+
+  const onClickBian = () => {
+    setGuaYao((oldGua) => {
+      return oldGua.map(
+        (g): Yao => {
+          if (g.changed) {
+            return g.type === YaoType.Yin
+              ? { ...g, type: YaoType.Yang }
+              : { ...g, type: YaoType.Yin };
           }
           return g;
         }
@@ -110,14 +126,13 @@ function App() {
       <>
         <div className={styles.yaoContainer}>
           {yaoDiv}
-          <Button
-            variant="contained"
+          <IconButton
             color="default"
             onClick={() => onClickChangeYao(i)}
             className={styles.yaoChanged}
           >
-            變爻
-          </Button>
+            <StarIcon />
+          </IconButton>
         </div>
         <div className={styles.yaoSpace}></div>
       </>
@@ -139,6 +154,7 @@ function App() {
           <Typography variant="h4">{guaYaoName}</Typography>
           <div className={styles.fillSpace}></div>
           <ButtonGroup variant="text" color="default" size="large">
+            <Button onClick={onClickBian}>變卦</Button>
             <Button onClick={onClickCuo}>錯卦</Button>
             <Button onClick={onClickZong}>綜卦</Button>
             <Button onClick={onClickJiao}>交卦</Button>
