@@ -1,6 +1,19 @@
+.app {
+  /* 用 fixed 避免網頁本身捲動，干擾 360 viewer 內的拖拉 */
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+
+  /* 這是要防止 iOS Safari 的 bottom toolbar 遮住網頁內容 */
+  max-height: -webkit-fill-available;
+}
+
 .root {
-  padding: 16px;
-  height: 90vh;
+  padding-left: 16px;
+  padding-right: 16px;
+
+  height: 100%;
+
   display: flex;
   flex-direction: column;
 }
@@ -11,14 +24,11 @@
 
 .guaYaoWrap {
   padding: 4px;
-  height: 30%;
-  max-width: 500px;
+  max-width: 300px;
 }
 
 .guaYaoWrap .gua {
   height: 100%;
-  padding-left: 15%;
-  padding-right: 15%;
   display: flex;
   flex-direction: column;
 }
@@ -30,8 +40,6 @@
 }
 
 .yaoContainer .yaoChanged {
-  width: 32px;
-  border: solid;
   margin-left: 32px;
 }
 
@@ -48,17 +56,30 @@
 }
 
 .yaoContainer .yin .space {
+  height: 100%;
   flex: 0.5;
 }
 
 .yaoContainer .yin .inner {
   background: black;
+  height: 100%;
   flex: 1;
+  border-radius: 4px;
+}
+
+.yaoContainer .yin .inner:hover {
+  background: grey;
 }
 
 .yaoContainer .yin .innerChanged {
   background: red;
+  height: 100%;
   flex: 1;
+  border-radius: 4px;
+}
+
+.yaoContainer .yin .innerChanged:hover {
+  background: rgb(255, 105, 105);
 }
 
 .yaoContainer .yang {
@@ -67,8 +88,20 @@
   min-height: 24px;
 }
 
+.yaoContainer .yang:hover {
+  background: gray;
+}
+
 .yaoContainer .yangChanged {
   background: red;
   flex: 1;
   min-height: 24px;
+}
+
+.yaoContainer .yangChanged:hover {
+  background: rgb(255, 105, 105);
+}
+
+.yaoContainer .yangChanged:hover {
+  background: rgb(255, 105, 105);
 }

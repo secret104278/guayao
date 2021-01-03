@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Typography } from "@material-ui/core";
+import { Button, ButtonBase, ButtonGroup, Typography } from "@material-ui/core";
 import { GuaData, GuaDetailMap } from "./data";
 import React, { useState } from "react";
 
@@ -90,19 +90,19 @@ function App() {
     switch (yao.type) {
       case YaoType.Yang:
         yaoDiv = (
-          <div
-            onClick={() => onClickYao(i)}
+          <Button
             className={yao.changed ? styles.yangChanged : styles.yang}
+            onClick={() => onClickYao(i)}
           />
         );
         break;
       case YaoType.Yin:
         yaoDiv = (
-          <div className={styles.yin} onClick={() => onClickYao(i)}>
+          <ButtonBase className={styles.yin} onClick={() => onClickYao(i)}>
             <div className={yao.changed ? styles.innerChanged : styles.inner} />
             <div className={styles.space} />
             <div className={yao.changed ? styles.innerChanged : styles.inner} />
-          </div>
+          </ButtonBase>
         );
         break;
     }
@@ -110,10 +110,14 @@ function App() {
       <>
         <div className={styles.yaoContainer}>
           {yaoDiv}
-          <div
+          <Button
+            variant="contained"
+            color="default"
             onClick={() => onClickChangeYao(i)}
             className={styles.yaoChanged}
-          ></div>
+          >
+            變爻
+          </Button>
         </div>
         <div className={styles.yaoSpace}></div>
       </>
@@ -125,28 +129,31 @@ function App() {
   const guaYaoDetail = guaYaoName && GuaDetailMap.get(guaYaoName);
 
   return (
-    <div className={styles.root}>
-      <div className={styles.guaYaoWrap}>
-        <div className={styles.gua}>{guaYaoDivs}</div>
-      </div>
+    <div className={styles.app}>
+      <div className={styles.root}>
+        <div className={styles.guaYaoWrap}>
+          <div className={styles.gua}>{guaYaoDivs}</div>
+        </div>
 
-      <div style={{ display: "flex" }}>
-        <div className={styles.fillSpace}></div>
-        <ButtonGroup>
-          <Button onClick={onClickCuo}>錯</Button>
-          <Button onClick={onClickZong}>綜</Button>
-          <Button onClick={onClickJiao}>交</Button>
-        </ButtonGroup>
-      </div>
-      <div style={{ flex: 1, overflow: "scroll" }}>
-        <Typography variant="body1" gutterBottom>
-          {guaYaoDetail?.split("\n").map((line) => (
-            <>
-              {line}
-              <br />
-            </>
-          ))}
-        </Typography>
+        <div style={{ display: "flex", alignItems: "flex-end" }}>
+          <Typography variant="h4">{guaYaoName}</Typography>
+          <div className={styles.fillSpace}></div>
+          <ButtonGroup variant="text" color="default" size="large">
+            <Button onClick={onClickCuo}>錯卦</Button>
+            <Button onClick={onClickZong}>綜卦</Button>
+            <Button onClick={onClickJiao}>交卦</Button>
+          </ButtonGroup>
+        </div>
+        <div style={{ flex: 1, overflow: "scroll", margin: "8px" }}>
+          <Typography variant="body1" gutterBottom>
+            {guaYaoDetail?.split("\n").map((line) => (
+              <>
+                {line}
+                <br />
+              </>
+            ))}
+          </Typography>
+        </div>
       </div>
     </div>
   );
