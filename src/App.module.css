@@ -1,0 +1,74 @@
+.root {
+  padding: 16px;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.fillSpace {
+  flex: 1;
+}
+
+.guaYaoWrap {
+  padding: 4px;
+  height: 30%;
+  max-width: 500px;
+}
+
+.guaYaoWrap .gua {
+  height: 100%;
+  padding-left: 15%;
+  padding-right: 15%;
+  display: flex;
+  flex-direction: column;
+}
+
+.yaoContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+}
+
+.yaoContainer .yaoChanged {
+  width: 32px;
+  border: solid;
+  margin-left: 32px;
+}
+
+.yaoSpace {
+  flex: 0.3;
+  min-height: 8px;
+}
+
+.yaoContainer .yin {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  min-height: 24px;
+}
+
+.yaoContainer .yin .space {
+  flex: 0.5;
+}
+
+.yaoContainer .yin .inner {
+  background: black;
+  flex: 1;
+}
+
+.yaoContainer .yin .innerChanged {
+  background: red;
+  flex: 1;
+}
+
+.yaoContainer .yang {
+  background: black;
+  flex: 1;
+  min-height: 24px;
+}
+
+.yaoContainer .yangChanged {
+  background: red;
+  flex: 1;
+  min-height: 24px;
+}

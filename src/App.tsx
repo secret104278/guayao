@@ -2,6 +2,8 @@ import { Button, ButtonGroup, Typography } from "@material-ui/core";
 import { GuaData, GuaDetailMap } from "./data";
 import React, { useState } from "react";
 
+import styles from "./App.module.css";
+
 enum YaoType {
   Yin = 0,
   Yang,
@@ -90,37 +92,30 @@ function App() {
         yaoDiv = (
           <div
             onClick={() => onClickYao(i)}
-            style={{ background: yao.changed ? "red" : "black", flex: 1 }}
-          ></div>
+            className={yao.changed ? styles.yangChanged : styles.yang}
+          />
         );
         break;
       case YaoType.Yin:
         yaoDiv = (
-          <div
-            onClick={() => onClickYao(i)}
-            style={{ flex: 1, display: "flex", flexDirection: "row" }}
-          >
-            <div
-              style={{ background: yao.changed ? "red" : "black", flex: 1 }}
-            ></div>
-            <div style={{ flex: 0.5 }}></div>
-            <div
-              style={{ background: yao.changed ? "red" : "black", flex: 1 }}
-            ></div>
+          <div className={styles.yin} onClick={() => onClickYao(i)}>
+            <div className={yao.changed ? styles.innerChanged : styles.inner} />
+            <div className={styles.space} />
+            <div className={yao.changed ? styles.innerChanged : styles.inner} />
           </div>
         );
         break;
     }
     guaYaoDivs.push(
       <>
-        <div style={{ flex: 1, display: "flex", flexDirection: "row" }}>
+        <div className={styles.yaoContainer}>
           {yaoDiv}
           <div
             onClick={() => onClickChangeYao(i)}
-            style={{ width: "32px", border: "solid", marginLeft: "32px" }}
+            className={styles.yaoChanged}
           ></div>
         </div>
-        <div style={{ flex: 0.3 }}></div>
+        <div className={styles.yaoSpace}></div>
       </>
     );
   });
@@ -130,29 +125,13 @@ function App() {
   const guaYaoDetail = guaYaoName && GuaDetailMap.get(guaYaoName);
 
   return (
-    <div
-      style={{
-        padding: "16px",
-        height: "90vh",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <div style={{ padding: "4px", height: "30%" }}>
-        <div
-          style={{
-            height: "100%",
-            paddingLeft: "15%",
-            paddingRight: "15%",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          {guaYaoDivs}
-        </div>
+    <div className={styles.root}>
+      <div className={styles.guaYaoWrap}>
+        <div className={styles.gua}>{guaYaoDivs}</div>
       </div>
+
       <div style={{ display: "flex" }}>
-        <div style={{ flex: 1 }}></div>
+        <div className={styles.fillSpace}></div>
         <ButtonGroup>
           <Button onClick={onClickCuo}>錯</Button>
           <Button onClick={onClickZong}>綜</Button>
