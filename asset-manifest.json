@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/guayao/static/css/main.8ed8d924.chunk.css",
-    "main.js": "/guayao/static/js/main.98c3ae7c.chunk.js",
-    "main.js.map": "/guayao/static/js/main.98c3ae7c.chunk.js.map",
+    "main.js": "/guayao/static/js/main.6ac45083.chunk.js",
+    "main.js.map": "/guayao/static/js/main.6ac45083.chunk.js.map",
     "runtime-main.js": "/guayao/static/js/runtime-main.9d9d670e.js",
     "runtime-main.js.map": "/guayao/static/js/runtime-main.9d9d670e.js.map",
     "static/js/2.017792b1.chunk.js": "/guayao/static/js/2.017792b1.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.9d9d670e.js",
     "static/js/2.017792b1.chunk.js",
     "static/css/main.8ed8d924.chunk.css",
-    "static/js/main.98c3ae7c.chunk.js"
+    "static/js/main.6ac45083.chunk.js"
   ]
 }
