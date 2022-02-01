@@ -1,4 +1,6 @@
 .app {
+  /* background-color: lightgray; */
+
   /* 用 fixed 避免網頁本身捲動，干擾 360 viewer 內的拖拉 */
   position: fixed;
   width: 100vw;
@@ -9,8 +11,8 @@
 }
 
 .root {
-  padding-left: 16px;
-  padding-right: 16px;
+  /* padding-left: 16px; */
+  /* padding-right: 16px; */
 
   height: 100%;
 
@@ -23,8 +25,11 @@
 }
 
 .guaYaoWrap {
-  padding: 4px;
-  max-width: 300px;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 1px 12px 0 rgb(0 0 0 / 19%);
+
+  margin: 8px;
+  padding: 4px 4px 4px 0;
 }
 
 .guaYaoWrap .gua {
@@ -40,7 +45,7 @@
 }
 
 .yaoContainer .yaoChanged {
-  margin-left: 32px;
+  margin-left: 12px;
 }
 
 .yaoSpace {
@@ -53,6 +58,7 @@
   display: flex;
   flex-direction: row;
   min-height: 24px;
+  margin-left: 24px;
 }
 
 .yaoContainer .yin .space {
@@ -72,7 +78,7 @@
 }
 
 .yaoContainer .yin .innerChanged {
-  background: red;
+  background: #FF3A20;
   height: 100%;
   flex: 1;
   border-radius: 4px;
@@ -86,6 +92,7 @@
   background: black;
   flex: 1;
   min-height: 24px;
+  margin-left: 24px;
 }
 
 .yaoContainer .yang:hover {
@@ -93,9 +100,10 @@
 }
 
 .yaoContainer .yangChanged {
-  background: red;
+  background: #FF3A20;
   flex: 1;
   min-height: 24px;
+  margin-left: 24px;
 }
 
 .yaoContainer .yangChanged:hover {
@@ -104,4 +112,35 @@
 
 .yaoContainer .yangChanged:hover {
   background: rgb(255, 105, 105);
+}
+
+.guaText {
+  flex: 1;
+  overflow: scroll;
+  margin: 8px;
+
+  padding: 12px;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 1px 12px 0 rgb(0 0 0 / 19%);
+}
+
+.dmiddle {
+  margin: 16px 8px 8px 8px;
+  padding: 12px;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 1px 12px 0 rgb(0 0 0 / 19%);
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.mmiddle {
+  display: flex;
+  align-items: flex-end;
+
+  margin: 8px;
+  padding: 4px;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 1px 12px 0 rgb(0 0 0 / 19%);
 }

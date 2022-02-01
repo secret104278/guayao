@@ -1,12 +1,12 @@
 import { GuaData, GuaDetailMap } from "./data";
 
+import { useWindowSize } from "react-use";
 import Button from "@material-ui/core/Button";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
-import IconButton from "@material-ui/core/IconButton";
-import StarIcon from "@material-ui/icons/Star";
 import Typography from "@material-ui/core/Typography";
 import styles from "./App.module.css";
+import Divider from "@material-ui/core/Divider";
 import { useState } from "react";
 
 enum YaoType {
@@ -22,6 +22,11 @@ type Yao = {
 type GuaYao = [Yao, Yao, Yao, Yao, Yao, Yao];
 
 function App() {
+  const { width, height } = useWindowSize();
+  const isMobile = height > width;
+
+  const [fontSize, setFontSize] = useState<number>(1.4);
+
   const [guaYao, setGuaYao] = useState<GuaYao>([
     { type: YaoType.Yang, changed: false },
     { type: YaoType.Yang, changed: false },
@@ -33,46 +38,40 @@ function App() {
 
   const onClickYao = (i: number) => {
     setGuaYao((oldGua) => {
-      return oldGua.map(
-        (g, j): Yao => {
-          if (j === i) {
-            if (g.type === YaoType.Yang) {
-              return { type: YaoType.Yin, changed: false };
-            } else if (g.type === YaoType.Yin) {
-              return { type: YaoType.Yang, changed: false };
-            }
+      return oldGua.map((g, j): Yao => {
+        if (j === i) {
+          if (g.type === YaoType.Yang) {
+            return { type: YaoType.Yin, changed: false };
+          } else if (g.type === YaoType.Yin) {
+            return { type: YaoType.Yang, changed: false };
           }
-          return g;
         }
-      ) as GuaYao;
+        return g;
+      }) as GuaYao;
     });
   };
 
   const onClickChangeYao = (i: number) => {
     setGuaYao((oldGua) => {
-      return oldGua.map(
-        (g, j): Yao => {
-          if (j === i) {
-            return { ...g, changed: !g.changed };
-          }
-          return g;
+      return oldGua.map((g, j): Yao => {
+        if (j === i) {
+          return { ...g, changed: !g.changed };
         }
-      ) as GuaYao;
+        return g;
+      }) as GuaYao;
     });
   };
 
   const onClickBian = () => {
     setGuaYao((oldGua) => {
-      return oldGua.map(
-        (g): Yao => {
-          if (g.changed) {
-            return g.type === YaoType.Yin
-              ? { ...g, type: YaoType.Yang }
-              : { ...g, type: YaoType.Yin };
-          }
-          return g;
+      return oldGua.map((g): Yao => {
+        if (g.changed) {
+          return g.type === YaoType.Yin
+            ? { ...g, type: YaoType.Yang }
+            : { ...g, type: YaoType.Yin };
         }
-      ) as GuaYao;
+        return g;
+      }) as GuaYao;
     });
   };
 
@@ -101,6 +100,8 @@ function App() {
 
   const guaYaoDivs: JSX.Element[] = [];
 
+  const guaYaoText = ["上爻", "五爻", "四爻", "三爻", "二爻", "初爻"];
+
   guaYao.forEach((yao, i) => {
     let yaoDiv: JSX.Element;
     switch (yao.type) {
@@ -126,13 +127,13 @@ function App() {
       <>
         <div className={styles.yaoContainer}>
           {yaoDiv}
-          <IconButton
+          <Button
             color="default"
             onClick={() => onClickChangeYao(i)}
             className={styles.yaoChanged}
           >
-            <StarIcon />
-          </IconButton>
+            {guaYaoText[i]}
+          </Button>
         </div>
         <div className={styles.yaoSpace}></div>
       </>
@@ -143,36 +144,97 @@ function App() {
   const guaYaoName = GuaData.get(guaYaoKey);
   const guaYaoDetail = guaYaoName && GuaDetailMap.get(guaYaoName);
 
-  return (
-    <div className={styles.app}>
-      <div className={styles.root}>
-        <div className={styles.guaYaoWrap}>
-          <div className={styles.gua}>{guaYaoDivs}</div>
-        </div>
-
-        <div style={{ display: "flex", alignItems: "flex-end" }}>
-          <Typography variant="h4">{guaYaoName}</Typography>
-          <div className={styles.fillSpace}></div>
-          <ButtonGroup variant="text" color="default" size="large">
-            <Button onClick={onClickBian}>變卦</Button>
-            <Button onClick={onClickCuo}>錯卦</Button>
-            <Button onClick={onClickZong}>綜卦</Button>
-            <Button onClick={onClickJiao}>交卦</Button>
-          </ButtonGroup>
-        </div>
-        <div style={{ flex: 1, overflow: "scroll", margin: "8px" }}>
-          <Typography variant="body1" gutterBottom>
-            {guaYaoDetail?.split("\n").map((line) => (
-              <>
-                {line}
-                <br />
-              </>
-            ))}
-          </Typography>
-        </div>
-      </div>
+  const guaGraph = (
+    <div className={styles.guaYaoWrap}>
+      <div className={styles.gua}>{guaYaoDivs}</div>
     </div>
   );
+
+  const guaTitle = <Typography variant="h4">{guaYaoName}</Typography>;
+  const guaMenu = (
+    <>
+      <ButtonGroup
+        color="default"
+        size="small"
+        variant="text"
+        aria-label="text primary button group"
+        style={{ padding: "4px" }}
+      >
+        <Button onClick={onClickBian}>變卦</Button>
+        <Button onClick={onClickCuo}>錯卦</Button>
+        <Button onClick={onClickZong}>綜卦</Button>
+        <Button onClick={onClickJiao}>交卦</Button>
+      </ButtonGroup>
+      <ButtonGroup
+        color="default"
+        size="small"
+        aria-label="outlined primary button group"
+        style={{ padding: "4px" }}
+      >
+        <Button onClick={() => setFontSize((s) => s + 0.2)}>+</Button>
+        <Button onClick={() => setFontSize((s) => s - 0.2)}>-</Button>
+      </ButtonGroup>
+    </>
+  );
+
+  const lines = guaYaoDetail?.trim().split("\n");
+
+  const guaText = (
+    <div className={styles.guaText}>
+      {lines?.map((line, i) => (
+        <>
+          <Typography
+            variant="body1"
+            style={{
+              fontSize: `${fontSize}rem`,
+              marginBottom: "0.15em",
+              marginTop: "0.15em",
+              marginLeft: "0.65em",
+            }}
+          >
+            {line}
+          </Typography>
+          {i !== lines?.length ? <Divider variant="middle" /> : null}
+        </>
+      ))}
+    </div>
+  );
+
+  if (isMobile)
+    return (
+      <div className={styles.app}>
+        <div className={styles.root}>
+          {guaGraph}
+          <div className={styles.mmiddle}>
+            {guaTitle}
+            <div className={styles.fillSpace}></div>
+            {guaMenu}
+          </div>
+          {guaText}
+        </div>
+      </div>
+    );
+  else
+    return (
+      <div className={styles.app}>
+        <div className={styles.root} style={{ flexDirection: "row" }}>
+          <div
+            style={{
+              flexDirection: "column",
+              width: isMobile ? undefined : "260px",
+              overflow: "scroll",
+            }}
+          >
+            {guaGraph}
+            <div className={styles.dmiddle}>
+              {guaTitle}
+              {guaMenu}
+            </div>
+          </div>
+          {guaText}
+        </div>
+      </div>
+    );
 }
 
 export default App;
