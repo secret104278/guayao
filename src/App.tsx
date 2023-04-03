@@ -1,6 +1,6 @@
 import { GuaData, GuaDetailMap } from "./data";
-
-import { useWindowSize } from "react-use";
+import { isMobileOnly } from "react-device-detect";
+import { useWindowSize, useOrientation } from "react-use";
 import Button from "@material-ui/core/Button";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
@@ -23,7 +23,8 @@ type GuaYao = [Yao, Yao, Yao, Yao, Yao, Yao];
 
 function App() {
   const { width, height } = useWindowSize();
-  const isMobile = height > width;
+  const { angle } = useOrientation();
+  const isPortrait = isMobileOnly && height > width;
 
   const [fontSize, setFontSize] = useState<number>(1.4);
 
@@ -155,9 +156,9 @@ function App() {
     <>
       <ButtonGroup
         color="default"
-        size="small"
         variant="text"
         aria-label="text primary button group"
+        orientation={!isMobileOnly || isPortrait ? "horizontal" : "vertical"}
         style={{ padding: "4px" }}
       >
         <Button onClick={onClickBian}>變卦</Button>
@@ -169,10 +170,10 @@ function App() {
         color="default"
         size="small"
         aria-label="outlined primary button group"
-        style={{ padding: "4px" }}
+        orientation={!isMobileOnly || isPortrait ? "horizontal" : "vertical"}
       >
-        <Button onClick={() => setFontSize((s) => s + 0.2)}>+</Button>
-        <Button onClick={() => setFontSize((s) => s - 0.2)}>-</Button>
+        <Button onClick={() => setFontSize((s) => s + 0.2)}>字 ＋</Button>
+        <Button onClick={() => setFontSize((s) => s - 0.2)}>字 －</Button>
       </ButtonGroup>
     </>
   );
@@ -200,7 +201,7 @@ function App() {
     </div>
   );
 
-  if (isMobile)
+  if (isPortrait)
     return (
       <div className={styles.app}>
         <div className={styles.root}>
@@ -214,6 +215,32 @@ function App() {
         </div>
       </div>
     );
+  if (isMobileOnly)
+    return (
+      <div className={styles.app}>
+        <div className={styles.root} style={{ flexDirection: "row" }}>
+          <div
+            className={styles.dmiddle}
+            style={{
+              marginLeft:
+                angle === 90 ? "calc(env(safe-area-inset-left))" : undefined,
+              flexWrap: "nowrap",
+            }}
+          >
+            {guaTitle}
+            {guaMenu}
+          </div>
+          <div
+            style={{
+              width: "240px",
+            }}
+          >
+            {guaGraph}
+          </div>
+          {guaText}
+        </div>
+      </div>
+    );
   else
     return (
       <div className={styles.app}>
@@ -221,7 +248,7 @@ function App() {
           <div
             style={{
               flexDirection: "column",
-              width: isMobile ? undefined : "260px",
+              width: isMobileOnly ? undefined : "260px",
               overflow: "scroll",
             }}
           >

@@ -44,10 +44,6 @@
   flex-direction: row;
 }
 
-.yaoContainer .yaoChanged {
-  margin-left: 12px;
-}
-
 .yaoSpace {
   flex: 0.3;
   min-height: 8px;
@@ -119,13 +115,13 @@
   overflow: scroll;
   margin: 8px;
 
-  padding: 12px;
+  padding: 4px;
   border-radius: 4px;
   box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 1px 12px 0 rgb(0 0 0 / 19%);
 }
 
 .dmiddle {
-  margin: 16px 8px 8px 8px;
+  margin: 8px 8px 8px 8px;
   padding: 12px;
   border-radius: 4px;
   box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 1px 12px 0 rgb(0 0 0 / 19%);
@@ -137,7 +133,7 @@
 
 .mmiddle {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
 
   margin: 8px;
   padding: 4px;
