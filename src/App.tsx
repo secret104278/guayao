@@ -172,8 +172,8 @@ function App() {
         aria-label="outlined primary button group"
         orientation={!isMobileOnly || isPortrait ? "horizontal" : "vertical"}
       >
-        <Button onClick={() => setFontSize((s) => s + 0.2)}>字 ＋</Button>
-        <Button onClick={() => setFontSize((s) => s - 0.2)}>字 －</Button>
+        <Button onClick={() => setFontSize((s) => s + 0.2)}>＋</Button>
+        <Button onClick={() => setFontSize((s) => s - 0.2)}>－</Button>
       </ButtonGroup>
     </>
   );
